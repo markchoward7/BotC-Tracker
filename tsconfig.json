@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./frontend/built",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "baseUrl": "./frontend/",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "downlevelIteration": true,
+    "paths": {
+      "*": ["./frontend/src/*"]
+    }
+  },
+  "include": ["./frontend/src/**/*", "./frontend/webpack.config.mjs", "./frontend/typings/**/*.d.ts"]
+}

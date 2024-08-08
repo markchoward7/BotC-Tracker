@@ -1,0 +1,59 @@
+services:
+  proxy:
+    container_name: botc_tracker_proxy
+    build:
+      context: ./proxy
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - 80:80
+
+  frontend:
+    container_name: botc_tracker_frontend
+    build:
+      context: ./frontend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - FORCE_COLOR=1
+    volumes:
+      - ./frontend:/app
+      - node_modules:/app/node_modules
+
+  backend:
+    container_name: botc_tracker_backend
+    restart: on-failure
+    build:
+      context: ./backend
+    depends_on:
+      - db
+    environment:
+      - DB_USER=admin
+      - DB_PASS=admin
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=mydb
+      - OPENAPI_VERSION=3.0.2
+      - REQUEST_IP_HEADER=X-Forwarded-For
+    volumes:
+      - ./backend:/app
+
+  db:
+    container_name: botc_tracker_db
+    image: postgres:16.3
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=mydb
+      - PGDATA=/var/lib/postgresql/16/data/pgdata
+    volumes:
+     - postgres_data:/var/lib/postgresql/16/data
+
+  db-admin:
+    image: adminer
+    ports:
+      - 8080:8080
+
+volumes:
+  postgres_data:
+  node_modules:
