@@ -9,7 +9,7 @@ import {
   ScriptList,
   RoleForm,
   RoleList,
-  TeamChart,
+  ChartPage,
 } from "components";
 import { useAPIContext } from "context";
 import React from "react";
@@ -37,7 +37,7 @@ const Main: React.FC = () => {
           sx={(theme) => ({ ...theme.mixins.toolbar, mt: "2%" })}
         />
         <Routes>
-          <Route path="/charts" Component={TeamChart} />
+          <Route path="/charts" Component={ChartPage} />
           <Route path="/games/:gameId" Component={GameForm} />
           <Route path="/games" Component={GameList} />
           <Route path="/scripts/:scriptId" Component={ScriptForm} />
