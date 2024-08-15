@@ -1,6 +1,6 @@
 import { useAPIContext } from "context";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useRoleFormReducer from "./RoleFormReducer";
 import { Role } from "types";
 import { createRole, updateRole } from "api";
@@ -16,8 +16,9 @@ import {
 } from "@mui/material";
 
 const RoleForm: React.FC = () => {
-  const { roles } = useAPIContext();
+  const { roles, refresh } = useAPIContext();
   const { roleId } = useParams();
+  const navigate = useNavigate();
 
   const role =
     roleId === "new" ? undefined : roles.find((r) => r.id === Number(roleId));
@@ -47,9 +48,15 @@ const RoleForm: React.FC = () => {
       team,
     };
     if (role) {
-      updateRole(data, role.id);
+      updateRole(data, role.id).then(() => {
+        navigate("/roles");
+        refresh();
+      });
     } else {
-      createRole(data);
+      createRole(data).then(() => {
+        navigate("/roles");
+        refresh();
+      });
     }
   };
   return (

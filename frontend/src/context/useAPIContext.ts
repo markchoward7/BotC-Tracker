@@ -6,6 +6,7 @@ export type APIContextType = {
   scripts: Script[];
   roles: Role[];
   loading: boolean;
+  refresh: Function;
 };
 
 export const APIContext = createContext<APIContextType>({
@@ -13,6 +14,7 @@ export const APIContext = createContext<APIContextType>({
   scripts: [],
   roles: [],
   loading: true,
+  refresh: () => {},
 });
 
 const useAPIContext = () => useContext(APIContext);

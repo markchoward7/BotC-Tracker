@@ -9,7 +9,8 @@ const APIContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [roles, setRoles] = useState<Role[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
+  const fetch = () => {
+    setLoading(true);
     Promise.all([getGames(), getScripts(), getRoles()]).then(
       ([games, scripts, roles]) => {
         setGames(games);
@@ -18,10 +19,14 @@ const APIContextProvider: React.FC<PropsWithChildren> = ({ children }) => {
         setLoading(false);
       }
     );
+  };
+
+  useEffect(() => {
+    fetch();
   }, []);
 
   const contextValue = useMemo(
-    () => ({ games, scripts, roles, loading }),
+    () => ({ games, scripts, roles, loading, refresh: fetch }),
     [games, scripts, roles, loading]
   );
 

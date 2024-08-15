@@ -161,3 +161,20 @@ export const bulkCreateGamesRoles = async (
   const response = await axios.post(url, gamesRoles, config);
   return response.data;
 };
+
+export const deleteGame = async (gameId: number) => {
+  const url = `/api/games/${gameId}`;
+  const config = { headers: { Accept: "application/json" } };
+  await axios.delete(url, config);
+};
+
+export const deleteScript = async (scriptId: number) => {
+  const url = `/api/scripts/${scriptId}`;
+  const config = { headers: { Accept: "application/json" } };
+  await axios.delete(url, config);
+};
+export const deleteRole = async (roleId: number) => {
+  const url = `/api/roles/${roleId}`;
+  const config = { headers: { Accept: "application/json" } };
+  await axios.delete(url, config);
+};

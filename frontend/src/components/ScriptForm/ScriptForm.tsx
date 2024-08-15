@@ -1,6 +1,6 @@
 import { useAPIContext } from "context";
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useScriptFormReducer from "./ScriptFormReducer";
 import { Role, Script } from "types";
 import { createScript, updateScript, updateScriptRoles } from "api";
@@ -13,8 +13,9 @@ import {
 } from "@mui/material";
 
 const ScriptForm: React.FC = () => {
-  const { scripts, roles } = useAPIContext();
+  const { scripts, roles, refresh } = useAPIContext();
   const { scriptId } = useParams();
+  const navigate = useNavigate();
   const script =
     scriptId === "new"
       ? undefined
@@ -41,11 +42,17 @@ const ScriptForm: React.FC = () => {
     const finalRoles = scriptRoles.map((role) => ({ name: role.name }));
     if (script) {
       updateScript(data, script.id).then(() =>
-        updateScriptRoles(finalRoles, script.id)
+        updateScriptRoles(finalRoles, script.id).then(() => {
+          navigate("/scripts");
+          refresh();
+        })
       );
     } else {
       createScript(data).then((newScript) =>
-        updateScriptRoles(finalRoles, newScript.id)
+        updateScriptRoles(finalRoles, newScript.id).then(() => {
+          navigate("/scripts");
+          refresh();
+        })
       );
     }
   };

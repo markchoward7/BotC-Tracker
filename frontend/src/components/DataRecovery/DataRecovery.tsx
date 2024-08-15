@@ -8,11 +8,13 @@ import {
 } from "api";
 import { useAPIContext } from "context";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Game, Role, Script } from "types";
 
 const DataRecovery: React.FC = () => {
-  const { games, roles, scripts } = useAPIContext();
+  const { games, roles, scripts, refresh } = useAPIContext();
   const [file, setFile] = useState<File>();
+  const navigate = useNavigate();
 
   const handleFileSelect: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -67,7 +69,10 @@ const DataRecovery: React.FC = () => {
           const gamesRoles = data.games.flatMap((game) =>
             game.roles.map((role) => ({ gameId: game.id, roleId: role.id }))
           );
-          bulkCreateGamesRoles(gamesRoles);
+          bulkCreateGamesRoles(gamesRoles).then(() => {
+            navigate("/games");
+            refresh();
+          });
         });
       });
     });

@@ -1,6 +1,6 @@
 import React from "react";
 import { useAPIContext } from "context";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useGameFormReducer from "./GameFormReducer";
 import {
   Autocomplete,
@@ -26,8 +26,9 @@ import { Game, Role } from "types";
 import { createGame, updateGame, updateGameRoles } from "api";
 
 const GameForm: React.FC = () => {
-  const { games, scripts, roles } = useAPIContext();
+  const { games, scripts, roles, refresh } = useAPIContext();
   const { gameId } = useParams();
+  const navigate = useNavigate();
   const game =
     gameId === "new" ? undefined : games.find((g) => g.id === Number(gameId));
 
@@ -130,11 +131,17 @@ const GameForm: React.FC = () => {
     const finalRoles = gameRoles.map((role) => ({ name: role.name }));
     if (game) {
       updateGame(data, game.id).then(() =>
-        updateGameRoles(finalRoles, game.id)
+        updateGameRoles(finalRoles, game.id).then(() => {
+          navigate("/games");
+          refresh();
+        })
       );
     } else {
       createGame(data).then((newGame) =>
-        updateGameRoles(finalRoles, newGame.id)
+        updateGameRoles(finalRoles, newGame.id).then(() => {
+          navigate("/games");
+          refresh();
+        })
       );
     }
   };

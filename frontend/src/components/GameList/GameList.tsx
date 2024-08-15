@@ -9,9 +9,10 @@ import {
 import { useAPIContext } from "context";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import { deleteGame } from "api";
 
 const GameList: React.FC = () => {
-  const { games, scripts } = useAPIContext();
+  const { games, scripts, refresh } = useAPIContext();
   const navigate = useNavigate();
 
   const handleRowSelection = (
@@ -20,6 +21,13 @@ const GameList: React.FC = () => {
     details: GridCallbackDetails
   ) => {
     navigate(`/games/${params.row.id}`);
+  };
+  const handleDelete = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    gameId: number
+  ) => {
+    event.stopPropagation();
+    deleteGame(gameId).then(() => refresh());
   };
 
   const columns: GridColDef<(typeof games)[number]>[] = [
@@ -37,6 +45,16 @@ const GameList: React.FC = () => {
       },
     },
     { field: "notes", headerName: "Notes", width: 500 },
+    {
+      field: "delete",
+      headerName: "",
+      filterable: false,
+      renderCell: (params) => (
+        <Button onClick={(event) => handleDelete(event, params.row.id)}>
+          Delete
+        </Button>
+      ),
+    },
   ];
 
   if (games.length === 0) {
