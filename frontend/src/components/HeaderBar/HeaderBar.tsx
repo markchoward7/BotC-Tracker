@@ -10,6 +10,7 @@ const usePageTitle = () => {
     "/games": "Games",
     "/scripts": "Scripts",
     "/roles": "Roles",
+    "/charts": "Charts",
   };
 
   const currentPath = Object.keys(pathToLabelMapping).find((path) =>

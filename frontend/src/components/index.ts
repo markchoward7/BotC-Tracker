@@ -10,6 +10,7 @@ import ScriptForm from "./ScriptForm";
 import ScriptList from "./ScriptList";
 import RoleList from "./RoleList";
 import RoleForm from "./RoleForm";
+import TeamChart from "./TeamChart";
 
 export {
   ThemeWrapper,
@@ -24,4 +25,5 @@ export {
   ScriptForm,
   RoleList,
   RoleForm,
+  TeamChart,
 };

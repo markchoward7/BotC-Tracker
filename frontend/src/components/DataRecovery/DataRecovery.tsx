@@ -70,7 +70,7 @@ const DataRecovery: React.FC = () => {
             game.roles.map((role) => ({ gameId: game.id, roleId: role.id }))
           );
           bulkCreateGamesRoles(gamesRoles).then(() => {
-            navigate("/games");
+            navigate("/charts");
             refresh();
           });
         });

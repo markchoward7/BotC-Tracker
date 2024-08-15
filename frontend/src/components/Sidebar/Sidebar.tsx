@@ -4,12 +4,12 @@ import ListItemLink from "./ListItemLink";
 import DescriptionIcon from "@mui/icons-material/Description";
 import CasinoIcon from "@mui/icons-material/Casino";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
-import SaveIcon from '@mui/icons-material/Save';
+import SaveIcon from "@mui/icons-material/Save";
+import AssessmentIcon from "@mui/icons-material/Assessment";
 
 const Sidebar: React.FC = () => {
   return (
     <Drawer
-    //   sx={{ display: { md: "none", xs: "block" } }}
       variant="permanent"
       open
       PaperProps={{
@@ -39,6 +39,11 @@ const Sidebar: React.FC = () => {
             icon={<DescriptionIcon />}
           />
           <ListItemLink to="/roles" primary="Roles" icon={<StopCircleIcon />} />
+          <ListItemLink
+            to="/charts"
+            primary="Charts"
+            icon={<AssessmentIcon />}
+          />
           <ListItemLink to="/data" primary="Data" icon={<SaveIcon />} />
         </List>
       </Box>
