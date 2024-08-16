@@ -5,21 +5,23 @@ import { Game } from "types";
 
 const PlayerCountChart: React.FC = () => {
   const { games } = useAPIContext();
-  const validPlayerCounts = [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 
   const buildData = (
     games: Game[]
   ): { playerCount: number; EVIL: number; GOOD: number }[] => {
+    const validPlayerCounts = [7, 8, 9, 10, 11, 12, 13, 14, 15];
     return validPlayerCounts.map((playerCount) => {
       const matchingGames = games.filter(
         (game) => game.playerCount === playerCount
       );
       return {
         playerCount,
-        EVIL: matchingGames.filter((game) => game.winningTeam === "EVIL")
-          .length || null,
-        GOOD: matchingGames.filter((game) => game.winningTeam === "GOOD")
-          .length || null,
+        EVIL:
+          matchingGames.filter((game) => game.winningTeam === "EVIL").length ||
+          null,
+        GOOD:
+          matchingGames.filter((game) => game.winningTeam === "GOOD").length ||
+          null,
       };
     });
   };
@@ -41,7 +43,7 @@ const PlayerCountChart: React.FC = () => {
       >
         <Label
           value="Player Count Win Rate"
-          offset={0}
+          offset={-4}
           position="insideBottom"
         />
       </XAxis>
