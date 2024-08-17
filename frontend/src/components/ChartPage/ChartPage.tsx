@@ -4,10 +4,11 @@ import PlayerCountChart from "./PlayerCountChart";
 import LocationChart from "./LocationChart";
 import ScriptChart from "./ScriptChart";
 import { Grid } from "@mui/material";
+import RoleChart from "./RoleChart";
 
 const ChartPage: React.FC = () => {
   return (
-    <Grid container padding={5}>
+    <Grid container rowSpacing={10}>
       <Grid item xs={3}>
         <TeamChart />
       </Grid>
@@ -19,6 +20,22 @@ const ChartPage: React.FC = () => {
       </Grid>
       <Grid item xs={12}>
         <ScriptChart />
+      </Grid>
+      <Grid item xs={12}>
+        <RoleChart roleType="TOWNSFOLK" />
+      </Grid>
+      <Grid item xs={12}>
+        <RoleChart roleType="OUTSIDER" />
+      </Grid>
+      <Grid item xs={12}>
+        <RoleChart roleType="MINION" />
+      </Grid>
+      <Grid item xs={12}>
+        <RoleChart roleType="DEMON" />
+      </Grid>
+      <Grid item xs={12}>
+        {/* SPACER TO ALLOW SHOWING LABELS ON FINAL CHART */}
+        <div style={{ height: 100 }} />
       </Grid>
     </Grid>
   );

@@ -1,6 +1,6 @@
 import { useAPIContext } from "context";
 import React from "react";
-import { Bar, BarChart, Label, LabelList, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, LabelList, XAxis, YAxis } from "recharts";
 import { Game } from "types";
 
 const ScriptChart: React.FC = () => {
@@ -83,9 +83,7 @@ const ScriptChart: React.FC = () => {
         tick={{ stroke: "white", textAnchor: "left" }}
         angle={45}
         dataKey="script"
-      >
-        <Label value="Script Win Rate" offset={-120} position="insideBottom" />
-      </XAxis>
+      />
       <Bar stackId={1} dataKey="EVIL" fill="#FF0000">
         <LabelList fill="white" valueAccessor={({ payload }) => payload.EVIL} />
       </Bar>
