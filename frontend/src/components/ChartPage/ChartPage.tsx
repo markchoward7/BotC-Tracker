@@ -8,7 +8,7 @@ import RoleChart from "./RoleChart";
 
 const ChartPage: React.FC = () => {
   return (
-    <Grid container rowSpacing={10}>
+    <Grid container rowSpacing={15}>
       <Grid item xs={3}>
         <TeamChart />
       </Grid>

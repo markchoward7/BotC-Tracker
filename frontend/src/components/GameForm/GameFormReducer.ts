@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { useReducer } from "react";
 import { Game, Role } from "types";
 
@@ -42,7 +43,7 @@ type setPlayerCount = {
 
 const buildInitialState = (game?: Game): Game => {
   if (game) {
-    return game;
+    return { ...game, date: dayjs(game.date).toDate() };
   }
   return {
     date: new Date(),
