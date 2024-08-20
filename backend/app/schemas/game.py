@@ -18,3 +18,4 @@ class GameSchema(SchemaBase):
     winning_team = fields.Enum(Alignment, by_value=True)
     script_id = fields.Integer()
     roles = fields.Pluck(GamesRolesSchema, "role", many=True, dump_only=True)
+    drunk_saw_role_id = fields.Integer(allow_none=True)

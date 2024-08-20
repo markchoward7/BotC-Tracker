@@ -26,6 +26,7 @@ class GamesCRUD(BaseCRUD[Game]):
             notes=json["notes"],
             winning_team=json["winning_team"],
             script_id=json["script_id"],
+            drunk_saw_role_id=json["drunk_saw_role_id"],
             id=json.get("id", None),
         )
 
@@ -52,6 +53,7 @@ class GamesCRUD(BaseCRUD[Game]):
                 winning_team=entry["winning_team"],
                 script_id=entry["script_id"],
                 id=entry["id"],
+                drunk_saw_role_id=entry["drunk_saw_role_id"],
             )
             for entry in json
         ]
@@ -80,6 +82,7 @@ class GamesCRUD(BaseCRUD[Game]):
         game.notes = json["notes"]
         game.winning_team = json["winning_team"]
         game.script_id = json["script_id"]
+        game.drunk_saw_role_id = json["drunk_saw_role_id"]
 
         try:
             session.add(game)

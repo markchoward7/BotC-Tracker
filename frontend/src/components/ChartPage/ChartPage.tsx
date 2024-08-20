@@ -5,6 +5,7 @@ import LocationChart from "./LocationChart";
 import ScriptChart from "./ScriptChart";
 import { Grid } from "@mui/material";
 import RoleChart from "./RoleChart";
+import DrunkChart from "./DrunkChart";
 
 const ChartPage: React.FC = () => {
   return (
@@ -32,6 +33,9 @@ const ChartPage: React.FC = () => {
       </Grid>
       <Grid item xs={12}>
         <RoleChart roleType="DEMON" />
+      </Grid>
+      <Grid item xs={8}>
+        <DrunkChart />
       </Grid>
       <Grid item xs={12}>
         {/* SPACER TO ALLOW SHOWING LABELS ON FINAL CHART */}

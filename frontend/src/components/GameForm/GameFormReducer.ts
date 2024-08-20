@@ -10,6 +10,7 @@ export enum ActionTypes {
   SET_IN_PERSON = "SET_IN_PERSON",
   SET_NOTES = "SET_NOTES",
   SET_PLAYER_COUNT = "SET_PLAYER_COUNT",
+  SET_DRUNK_ROLE = "SET_DRUNK_ROLE",
 }
 
 type setDate = {
@@ -40,6 +41,10 @@ type setPlayerCount = {
   type: ActionTypes.SET_PLAYER_COUNT;
   value: number;
 };
+type setDrunkRole = {
+  type: ActionTypes.SET_DRUNK_ROLE;
+  value: number;
+};
 
 const buildInitialState = (game?: Game): Game => {
   if (game) {
@@ -53,6 +58,7 @@ const buildInitialState = (game?: Game): Game => {
     roles: [],
     scriptId: 0,
     winningTeam: "EVIL",
+    drunkSawRoleId: null,
   };
 };
 
@@ -64,7 +70,8 @@ type Action =
   | setPlayerCount
   | setRoles
   | setScript
-  | setWinningTeam;
+  | setWinningTeam
+  | setDrunkRole;
 
 // TODO: Add some validation logic
 
@@ -84,6 +91,8 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, scriptId: action.value };
     case ActionTypes.SET_WINNING_TEAM:
       return { ...state, winningTeam: action.value };
+    case ActionTypes.SET_DRUNK_ROLE:
+      return { ...state, drunkSawRoleId: action.value };
     default:
       return state;
   }
@@ -113,6 +122,9 @@ const useGameFormReducer = (game?: Game) => {
   const setScript = (scriptId: number) => {
     dispatch({ type: ActionTypes.SET_SCRIPT, value: scriptId });
   };
+  const setDrunkRole = (roleId: number) => {
+    dispatch({ type: ActionTypes.SET_DRUNK_ROLE, value: roleId });
+  };
   return {
     state,
     setDate,
@@ -122,6 +134,7 @@ const useGameFormReducer = (game?: Game) => {
     setRoles,
     setWinningTeam,
     setScript,
+    setDrunkRole,
   };
 };
 

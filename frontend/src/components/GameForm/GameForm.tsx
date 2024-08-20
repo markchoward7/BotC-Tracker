@@ -15,6 +15,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  SelectChangeEvent,
   TextField,
   Typography,
 } from "@mui/material";
@@ -41,6 +42,7 @@ const GameForm: React.FC = () => {
     setInPerson,
     setNotes,
     setPlayerCount,
+    setDrunkRole,
   } = useGameFormReducer(game);
   const {
     date,
@@ -50,6 +52,7 @@ const GameForm: React.FC = () => {
     isInPerson,
     notes,
     playerCount,
+    drunkSawRoleId,
   } = state;
 
   const handleDate = (value: Dayjs) => {
@@ -76,6 +79,9 @@ const GameForm: React.FC = () => {
     value: Role[]
   ) => {
     setRoles(value);
+  };
+  const handleDrunkRole = (event: SelectChangeEvent<number>) => {
+    setDrunkRole(Number(event.target.value) || null);
   };
   const handleNotes = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNotes(event.target.value);
@@ -127,6 +133,7 @@ const GameForm: React.FC = () => {
       playerCount,
       scriptId,
       winningTeam,
+      drunkSawRoleId,
     };
     const finalRoles = gameRoles.map((role) => ({ name: role.name }));
     if (game) {
@@ -219,6 +226,20 @@ const GameForm: React.FC = () => {
               <TextField {...params} variant="standard" label="Roles" />
             )}
           />
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl sx={{ minWidth: 120 }}>
+            <InputLabel>Drunk</InputLabel>
+            <Select value={drunkSawRoleId} onChange={handleDrunkRole}>
+              <MenuItem value={null} />
+              {roles
+                .toSorted(orderRoles)
+                .filter((role) => role.team === "TOWNSFOLK")
+                .map((role) => (
+                  <MenuItem value={role.id}>{role.name}</MenuItem>
+                ))}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12}>
           <TextField

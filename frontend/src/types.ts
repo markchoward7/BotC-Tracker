@@ -13,6 +13,7 @@ export type Game = {
   roles?: Role[];
   scriptId: number;
   winningTeam: "EVIL" | "GOOD";
+  drunkSawRoleId?: number;
 };
 
 export type Script = {

@@ -35,3 +35,6 @@ class Game(MetadataBase, ModelBase):
     roles: Mapped[List["GamesRoles"]] = relationship(
         default_factory=list, back_populates="game"
     )
+    drunk_saw_role_id: Mapped[Optional[int]] = mapped_column(
+        ForeignKey("roles.id", ondelete="CASCADE")
+    )
