@@ -10,8 +10,11 @@ const PlayerCountChart: React.FC = () => {
     games: Game[]
   ): { playerCount: number; EVIL: number; GOOD: number }[] => {
     const validPlayerCounts = [7, 8, 9, 10, 11, 12, 13, 14, 15];
+    const notHomebrewGames = games.filter(
+      (game) => !game.roles.find((role) => role.homebrew)
+    );
     return validPlayerCounts.map((playerCount) => {
-      const matchingGames = games.filter(
+      const matchingGames = notHomebrewGames.filter(
         (game) => game.playerCount === playerCount
       );
       return {

@@ -2,6 +2,7 @@ export type Role = {
   id?: number;
   name: string;
   team?: string;
+  homebrew?: boolean;
 };
 
 export type Game = {

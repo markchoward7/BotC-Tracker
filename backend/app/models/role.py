@@ -26,3 +26,4 @@ class Role(MetadataBase, ModelBase):
     team: Mapped[RoleType] = mapped_column(
         Enum(RoleType, create_constraint=True, name="roletype")
     )
+    homebrew: Mapped[bool] = mapped_column(default=False)

@@ -26,7 +26,12 @@ class RolesCRUD(BaseCRUD[Role]):
     @staticmethod
     def create_entity(session: Session, json: Dict[str, Any]) -> Role:
         """Insert role in database."""
-        new_role = Role(name=json["name"], team=json["team"], id=json.get("id", None))
+        new_role = Role(
+            name=json["name"],
+            team=json["team"],
+            homebrew=json["homebrew"],
+            id=json.get("id", None),
+        )
 
         try:
             session.add(new_role)
@@ -43,7 +48,12 @@ class RolesCRUD(BaseCRUD[Role]):
     def create_entities(session: Session, json: List[Dict[str, Any]]) -> List[Role]:
         """Insert multiple roles in database."""
         new_roles = [
-            Role(name=entry["name"], team=entry["team"], id=entry["id"])
+            Role(
+                name=entry["name"],
+                team=entry["team"],
+                homebrew=entry["homebrew"],
+                id=entry["id"],
+            )
             for entry in json
         ]
 
@@ -67,6 +77,7 @@ class RolesCRUD(BaseCRUD[Role]):
         role: Role = self.get_entity(session, id_)
         role.name = json["name"]
         role.team = json["team"]
+        role.homebrew = json["homebrew"]
 
         try:
             session.add(role)

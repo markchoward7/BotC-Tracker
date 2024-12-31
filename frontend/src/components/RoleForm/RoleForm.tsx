@@ -6,7 +6,9 @@ import { Role } from "types";
 import { createRole, updateRole } from "api";
 import {
   Button,
+  Checkbox,
   FormControl,
+  FormControlLabel,
   Grid,
   InputLabel,
   MenuItem,
@@ -23,8 +25,8 @@ const RoleForm: React.FC = () => {
   const role =
     roleId === "new" ? undefined : roles.find((r) => r.id === Number(roleId));
 
-  const { state, setName, setTeam } = useRoleFormReducer();
-  const { name, team } = state;
+  const { state, setName, setTeam, setHomebrew } = useRoleFormReducer();
+  const { name, team, homebrew } = state;
 
   const handleName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -40,6 +42,9 @@ const RoleForm: React.FC = () => {
       setTeam(value);
     }
   };
+  const handleHomebrew = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setHomebrew(event.target.checked);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -87,6 +92,12 @@ const RoleForm: React.FC = () => {
               <MenuItem value="DEMON">Demon</MenuItem>
             </Select>
           </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <FormControlLabel
+            label="Homebrew?"
+            control={<Checkbox checked={homebrew} onChange={handleHomebrew} />}
+          />
         </Grid>
         <Grid item xs={4}>
           <Button type="submit">Submit</Button>

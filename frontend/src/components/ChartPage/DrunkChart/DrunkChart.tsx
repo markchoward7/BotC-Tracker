@@ -7,7 +7,10 @@ const DrunkChart: React.FC = () => {
   const { games, roles } = useAPIContext();
 
   const buildData = (games: Game[]): { role: string; value: number }[] => {
-    const fullGames = games.filter((game) => game.playerCount >= 7);
+    const notHomebrewGames = games.filter(
+      (game) => !game.roles.find((role) => role.homebrew)
+    );
+    const fullGames = notHomebrewGames.filter((game) => game.playerCount >= 7);
     const drunkGames = fullGames.filter((game) => game.drunkSawRoleId);
     const uniqueRoles = [
       ...new Set(drunkGames.map((game) => game.drunkSawRoleId)),

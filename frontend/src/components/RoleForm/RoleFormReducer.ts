@@ -4,6 +4,7 @@ import { Role } from "types";
 export enum ActionTypes {
   SET_NAME = "SET_NAME",
   SET_TEAM = "SET_TEAM",
+  SET_HOMEBREW = "SET_HOMEBREW",
 }
 
 type setName = {
@@ -14,6 +15,10 @@ type setTeam = {
   type: ActionTypes.SET_TEAM;
   value: "TOWNSFOLK" | "OUTSIDER" | "MINION" | "DEMON";
 };
+type setHomebrew = {
+  type: ActionTypes.SET_HOMEBREW;
+  value: boolean
+}
 
 const buildInitialState = (role?: Role): Role => {
   if (role) {
@@ -22,11 +27,12 @@ const buildInitialState = (role?: Role): Role => {
   return {
     name: "",
     team: "TOWNSFOLK",
+    homebrew: false,
   };
 };
 
 type State = Role;
-type Action = setName | setTeam;
+type Action = setName | setTeam | setHomebrew;
 
 // TODO: Add some validation logic
 
@@ -36,6 +42,8 @@ const reducer = (state: State, action: Action): State => {
       return { ...state, name: action.value };
     case ActionTypes.SET_TEAM:
       return { ...state, team: action.value };
+    case ActionTypes.SET_HOMEBREW:
+      return { ...state, homebrew: action.value };
     default:
       return state;
   }
@@ -50,7 +58,10 @@ const useRoleFormReducer = (role?: Role) => {
   const setTeam = (team: "TOWNSFOLK" | "OUTSIDER" | "MINION" | "DEMON") => {
     dispatch({ type: ActionTypes.SET_TEAM, value: team });
   };
-  return { state, setName, setTeam };
+  const setHomebrew = (homebrew: boolean) => {
+    dispatch({ type: ActionTypes.SET_HOMEBREW, value: homebrew });
+  }
+  return { state, setName, setTeam, setHomebrew };
 };
 
 export default useRoleFormReducer;

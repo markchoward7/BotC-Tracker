@@ -4,7 +4,10 @@ import { Bar, BarChart, Label, XAxis, YAxis } from "recharts";
 
 const TeamChart: React.FC = () => {
   const { games } = useAPIContext();
-  const fullGames = games.filter((game) => game.playerCount >= 7);
+  const notHomebrewGames = games.filter(
+    (game) => !game.roles.find((role) => role.homebrew)
+  );
+  const fullGames = notHomebrewGames.filter((game) => game.playerCount >= 7);
   const data = {
     EVIL: fullGames.filter((game) => game.winningTeam === "EVIL").length,
     GOOD: fullGames.filter((game) => game.winningTeam === "GOOD").length,

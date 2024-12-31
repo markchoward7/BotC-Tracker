@@ -7,14 +7,17 @@ const ScriptChart: React.FC = () => {
   const { games, scripts } = useAPIContext();
   const scriptTable: { [key: number]: string } = {};
   scripts.forEach((script) => {
-    const shortName = script.name.replace(/v\d/, "").trim();
+    const shortName = script.name.replace(/v\d+/, "").trim();
     scriptTable[script.id] = shortName;
   });
 
   const buildData = (
     games: Game[]
   ): { script: string; EVIL: number; GOOD: number }[] => {
-    const fullGames = games.filter((game) => game.playerCount >= 7);
+    const notHomebrewGames = games.filter(
+      (game) => !game.roles.find((role) => role.homebrew)
+    );
+    const fullGames = notHomebrewGames.filter((game) => game.playerCount >= 7);
     const uniqueScripts = [
       ...new Set(fullGames.map((game) => scriptTable[game.scriptId])),
     ].sort((a, b) => {

@@ -9,7 +9,10 @@ const LocationChart: React.FC = () => {
   const buildData = (
     games: Game[]
   ): { location: "Online" | "In Person"; EVIL: number; GOOD: number }[] => {
-    const fullGames = games.filter((game) => game.playerCount >= 7);
+    const notHomebrewGames = games.filter(
+      (game) => !game.roles.find((role) => role.homebrew)
+    );
+    const fullGames = notHomebrewGames.filter((game) => game.playerCount >= 7);
     return [
       {
         location: "Online",

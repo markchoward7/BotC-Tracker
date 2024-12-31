@@ -13,7 +13,10 @@ const RoleChart: React.FC<RoleChartProps> = ({ roleType }) => {
   const buildData = (
     games: Game[]
   ): { role: string; WINS: number; LOSSES: number }[] => {
-    const fullGames = games.filter((game) => game.playerCount >= 7);
+    const notHomebrewGames = games.filter(
+      (game) => !game.roles.find((role) => role.homebrew)
+    );
+    const fullGames = notHomebrewGames.filter((game) => game.playerCount >= 7);
     const mapping: { [key: string]: { WINS: number; LOSSES: number } } = {};
     const result: { role: string; WINS: number; LOSSES: number }[] = [];
     fullGames.flatMap((game) => {

@@ -64,6 +64,7 @@ const DataRecovery: React.FC = () => {
             playerCount: game.playerCount,
             scriptId: game.scriptId,
             winningTeam: game.winningTeam,
+            drunkSawRoleId: game.drunkSawRoleId,
           }))
         ).then(() => {
           const gamesRoles = data.games.flatMap((game) =>

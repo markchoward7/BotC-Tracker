@@ -44,6 +44,7 @@ class GamesCRUD(BaseCRUD[Game]):
     @staticmethod
     def create_entities(session: Session, json: List[Dict[str, Any]]) -> List[Game]:
         """Insert multiple games in database."""
+        logging.info(json[0])
         new_games = [
             Game(
                 player_count=entry["player_count"],

@@ -12,3 +12,4 @@ class RoleSchema(SchemaBase):
 
     name = fields.String()
     team = fields.Enum(RoleType, by_value=True, allow_none=True)
+    homebrew = fields.Boolean(load_default=False)
